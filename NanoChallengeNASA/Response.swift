@@ -76,12 +76,16 @@ struct ImageLink: Decodable {
 
 struct Metadata: Decodable {
     
-    var imageHeight: Int?
-    var imageWidth: Int?
+    var fileImageHeight: Int?
+    var fileImageWidth: Int?
+    var exifImageHeight: Int?
+    var exifImageWidth: Int?
     
     enum CodingKeys: String, CodingKey {
-        case imageHeight = "File:ImageHeight"
-        case imageWidth = "File:ImageWidth"
+        case fileImageHeight = "File:ImageHeight"
+        case fileImageWidth = "File:ImageWidth"
+        case exifImageHeight = "EXIF:ImageHeight"
+        case exifImageWidth = "EXIF:ImageWidth"
     }
     
 }

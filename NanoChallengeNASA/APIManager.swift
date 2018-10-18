@@ -42,8 +42,7 @@ class APIManager {
             }
             }.resume()
     }
-    
-    
+        
     private func downloadMetadata(images: [Image], completion: @escaping ([Image]?, Error?) -> Void) {
         
         let group = DispatchGroup()
@@ -52,7 +51,10 @@ class APIManager {
         
         for (index, image) in images.enumerated() {
             let id = (image.id)!
-            let url = URL(string: "https://images-assets.nasa.gov/image/\(id)/metadata.json")!
+            
+            let metadataUrl = "https://images-assets.nasa.gov/image/\(id)/metadata.json"
+            
+            let url = URL(string: metadataUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)!
             
             group.enter()
             
@@ -60,7 +62,7 @@ class APIManager {
                 do {
                     let decoder = JSONDecoder()
                     let metadata = try decoder.decode(Metadata.self, from: data!)
-                    images[index].setSize(width: metadata.imageWidth, height: metadata.imageHeight)
+                    images[index].setSize(width: metadata.fileImageWidth ?? metadata.exifImageWidth, height: metadata.fileImageHeight ?? metadata.exifImageHeight)
                 } catch {
                     print(error)
                 }
