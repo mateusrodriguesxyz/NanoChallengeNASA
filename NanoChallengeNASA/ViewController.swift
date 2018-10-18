@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     
     var images: [Image] = []
     
+    let imageCache = NSCache<NSString, UIImage>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,6 +24,8 @@ class ViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
         
     }
 
@@ -59,6 +63,7 @@ extension ViewController: UISearchBarDelegate {
                 })
                 
                 self.collectionView.reloadData()
+                self.searchBar.resignFirstResponder()
             }
         }
         
@@ -68,6 +73,24 @@ extension ViewController: UISearchBarDelegate {
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
+    func downloadImage(url: URL, completion: @escaping (URL, UIImage?, Error?) -> Void) {
+        if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+            completion(url, cachedImage, nil)
+        } else {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    completion(url, nil, error)
+                    
+                } else if let data = data, let image = UIImage(data: data) {
+                    self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                    completion(url, image, nil)
+                } else {
+                    completion(url, nil, NSError(domain: url.absoluteString, code: 0, userInfo: nil))
+                }
+                }.resume()
+        }
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print(images.count)
@@ -76,7 +99,15 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
-        cell.backgroundColor = .blue
+        
+        let image = images[indexPath.item]
+        
+        downloadImage(url: image.thumbUrl!) { (url, image, error) in
+            DispatchQueue.main.async {
+                cell.imageView.image = image
+            }
+        }
+        
         return cell
     }
     
