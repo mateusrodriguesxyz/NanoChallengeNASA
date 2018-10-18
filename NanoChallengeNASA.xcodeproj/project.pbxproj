@@ -15,6 +15,8 @@
 		DC7001AF2178D73B004953DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC7001AD2178D73B004953DB /* LaunchScreen.storyboard */; };
 		DC7001B92178FEC0004953DB /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7001B82178FEC0004953DB /* APIManager.swift */; };
 		DC7001BB2178FF4D004953DB /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7001BA2178FF4D004953DB /* Response.swift */; };
+		DC7001BE21790450004953DB /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7001BC21790450004953DB /* CollectionViewCell.swift */; };
+		DC7001BF21790450004953DB /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC7001BD21790450004953DB /* CollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		DC7001B02178D73B004953DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC7001B82178FEC0004953DB /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		DC7001BA2178FF4D004953DB /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		DC7001BC21790450004953DB /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		DC7001BD21790450004953DB /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				DC7001AD2178D73B004953DB /* LaunchScreen.storyboard */,
 				DC7001B02178D73B004953DB /* Info.plist */,
 				DC7001A82178D73B004953DB /* NanoChallengeNASA.xcdatamodeld */,
+				DC7001BC21790450004953DB /* CollectionViewCell.swift */,
+				DC7001BD21790450004953DB /* CollectionViewCell.xib */,
 			);
 			path = NanoChallengeNASA;
 			sourceTree = "<group>";
@@ -133,6 +139,7 @@
 			files = (
 				DC7001AF2178D73B004953DB /* LaunchScreen.storyboard in Resources */,
 				DC7001AC2178D73B004953DB /* Assets.xcassets in Resources */,
+				DC7001BF21790450004953DB /* CollectionViewCell.xib in Resources */,
 				DC7001A72178D73B004953DB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,6 +153,7 @@
 			files = (
 				DC7001B92178FEC0004953DB /* APIManager.swift in Sources */,
 				DC7001AA2178D73B004953DB /* NanoChallengeNASA.xcdatamodeld in Sources */,
+				DC7001BE21790450004953DB /* CollectionViewCell.swift in Sources */,
 				DC7001A42178D73B004953DB /* ViewController.swift in Sources */,
 				DC7001A22178D73B004953DB /* AppDelegate.swift in Sources */,
 				DC7001BB2178FF4D004953DB /* Response.swift in Sources */,
