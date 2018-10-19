@@ -51,7 +51,7 @@ struct Image: Decodable {
         self.id = data.first?.nasa_id
         self.title = data.first?.title
         self.description = data.first?.description
-        self.thumbUrl = URL(string: (links.first?.href)!)
+        self.thumbUrl = URL(string: (links.first?.href.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed))!)
     }
     
     mutating func setSize(width: Int?, height: Int?) {

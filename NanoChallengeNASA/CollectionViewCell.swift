@@ -10,7 +10,12 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView! {
+        didSet {
+            imageView.clipsToBounds = true
+            imageView.layer.cornerRadius = 5
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
