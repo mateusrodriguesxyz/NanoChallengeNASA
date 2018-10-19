@@ -18,6 +18,8 @@
 		DC7001BE21790450004953DB /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7001BC21790450004953DB /* CollectionViewCell.swift */; };
 		DC7001BF21790450004953DB /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC7001BD21790450004953DB /* CollectionViewCell.xib */; };
 		DC7001C32179FD00004953DB /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7001C22179FD00004953DB /* PinterestLayout.swift */; };
+		DC7001C5217A0F92004953DB /* PeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7001C4217A0F92004953DB /* PeekViewController.swift */; };
+		DC7001C7217A1D75004953DB /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7001C6217A1D75004953DB /* DetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		DC7001BC21790450004953DB /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		DC7001BD21790450004953DB /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		DC7001C22179FD00004953DB /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
+		DC7001C4217A0F92004953DB /* PeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekViewController.swift; sourceTree = "<group>"; };
+		DC7001C6217A1D75004953DB /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				DC7001BC21790450004953DB /* CollectionViewCell.swift */,
 				DC7001BD21790450004953DB /* CollectionViewCell.xib */,
 				DC7001C22179FD00004953DB /* PinterestLayout.swift */,
+				DC7001C4217A0F92004953DB /* PeekViewController.swift */,
+				DC7001C6217A1D75004953DB /* DetailsViewController.swift */,
 			);
 			path = NanoChallengeNASA;
 			sourceTree = "<group>";
@@ -156,11 +162,13 @@
 			files = (
 				DC7001B92178FEC0004953DB /* APIManager.swift in Sources */,
 				DC7001AA2178D73B004953DB /* NanoChallengeNASA.xcdatamodeld in Sources */,
+				DC7001C7217A1D75004953DB /* DetailsViewController.swift in Sources */,
 				DC7001BE21790450004953DB /* CollectionViewCell.swift in Sources */,
 				DC7001C32179FD00004953DB /* PinterestLayout.swift in Sources */,
 				DC7001A42178D73B004953DB /* ViewController.swift in Sources */,
 				DC7001A22178D73B004953DB /* AppDelegate.swift in Sources */,
 				DC7001BB2178FF4D004953DB /* Response.swift in Sources */,
+				DC7001C5217A0F92004953DB /* PeekViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

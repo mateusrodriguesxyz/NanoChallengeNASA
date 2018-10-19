@@ -25,6 +25,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchBar.text = "mars"
+        
         activityIndicator.isHidden = true
         
         searchBar.delegate = self
@@ -39,6 +41,10 @@ class ViewController: UIViewController {
         
         if let layout = collectionView?.collectionViewLayout as? PinterestLayout {
             layout.delegate = self
+        }
+        
+        if( traitCollection.forceTouchCapability == .available){
+            registerForPreviewing(with: self, sourceView: self.collectionView)
         }
         
     }
@@ -64,7 +70,12 @@ extension ViewController: UISearchBarDelegate {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
+        self.images = []
+        collectionView.reloadData()
+        
         let searchString = searchBar.text?.lowercased().replacingOccurrences(of: " ", with: "+") ?? ""
+        
+        searchBar.text = nil
         
         APIManager.shared.searchImage(query: searchString) { (images, error) in
             
@@ -80,7 +91,7 @@ extension ViewController: UISearchBarDelegate {
             DispatchQueue.main.async {
                 
                 for (index, image) in self.images.enumerated() {
-                    print(index, image.imageSize)
+                    print(index, image.imageSize ?? "none")
                 }
                 if !self.images.isEmpty {
                     self.collectionView.reloadData()
@@ -139,6 +150,40 @@ extension ViewController : PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, sizeForPhotoAtIndexPath indexPath: IndexPath) -> CGSize {
         return images[indexPath.item].imageSize ?? CGSize(width: 200, height: 200)
     }
+    
+}
+
+extension ViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = collectionView.indexPathForItem(at: location) else {
+            return nil
+        }
+        
+        print(indexPath)
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell else {
+            return nil
+        }
+        let previewController = storyboard?.instantiateViewController(withIdentifier: "preview") as! PeekViewController
+        
+        previewController.imageData = images[indexPath.item]
+        previewController.image = cell.imageView.image
+        
+        previewController.preferredContentSize = CGSize(width: 0.0, height: 300)
+        
+        previewingContext.sourceRect = cell.frame
+        
+        return previewController
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        let previewController = viewControllerToCommit as! PeekViewController
+        let detailsController = storyboard?.instantiateViewController(withIdentifier: "details") as! DetailsViewController
+        detailsController.image = previewController.image
+        detailsController.imageData = previewController.imageData
+        navigationController?.show(detailsController, sender: nil)
+    }
+    
     
 }
 

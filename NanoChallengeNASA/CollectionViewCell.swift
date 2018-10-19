@@ -14,12 +14,20 @@ class CollectionViewCell: UICollectionViewCell {
         didSet {
             imageView.clipsToBounds = true
             imageView.layer.cornerRadius = 5
+            imageView.backgroundColor = .white
         }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+//        self.contentView.layer.cornerRadius = 5
+//        self.contentView.backgroundColor = .blue
         // Initialization code
+    }
+    
+    override func prepareForReuse() {
+        imageView.image = nil
     }
 
 }
