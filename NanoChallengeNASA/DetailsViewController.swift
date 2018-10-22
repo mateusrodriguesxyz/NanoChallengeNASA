@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import AVFoundation
 
 class DetailsViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var textView: UITextView!
+    
+    @IBOutlet weak var imageConstraintHeight: NSLayoutConstraint!
+    @IBOutlet weak var contentConstraintHeight: NSLayoutConstraint!
+    @IBOutlet weak var textConstraintHeight: NSLayoutConstraint!
     
     var imageData: Image?
     var image: UIImage?
@@ -19,23 +25,26 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         
         if let image = image {
+            
+            let boundingRect = CGRect(x: 0, y: 0, width: imageView.frame.width, height: CGFloat(MAXFLOAT))
+            let proportionalSize = AVMakeRect(aspectRatio: image.size, insideRect: boundingRect)
+            
+            imageConstraintHeight.constant = proportionalSize.size.height
+            print("image constraint", imageConstraintHeight.constant)
+            print("content constraint", contentConstraintHeight.constant)
+    
             imageView.image = image
+            
+            textView.text = imageData?.description
+            
+            textConstraintHeight.constant = textView.contentSize.height
+            
+            contentConstraintHeight.constant = imageConstraintHeight.constant + textConstraintHeight.constant + 40
+            
         }
         
         print(imageData)
 
-        // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

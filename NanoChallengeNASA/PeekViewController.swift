@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class PeekViewController: UIViewController {
 
@@ -19,6 +20,7 @@ class PeekViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.2
@@ -33,17 +35,55 @@ class PeekViewController: UIViewController {
     }
     
     override var previewActionItems: [UIPreviewActionItem] {
-        let action1 = UIPreviewAction(title: "Save to Favorites", style: .default,
-        handler: { previewAction, viewController in
-            print("Action One Selected")
-        })
+        let saveAction = UIPreviewAction(title: "Save to Favorites", style: .default,
+            handler: { previewAction, viewController in
+                
+                if let data = self.image?.pngData() {
+                    
+                    let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                    let filename = documentDirectory.appendingPathComponent("\(self.imageData!.id!)")
+                    try? data.write(to: filename)
+                    
+                    guard let photo = self.imageData else {
+                        return
+                    }
+                    
+                    DBManager.shared.insertItem(id: photo.id!, title: photo.title!, description: photo.description!)
+                    
+                }
+                
+            })
         
-        let action2 = UIPreviewAction(title: "Download Image", style: .default,
+        let removeAction = UIPreviewAction(title: "Delete from Favorites", style: .default,
+             handler: { previewAction, viewController in
+                
+                let photo = DBManager.shared.fetchPhoto(id: (self.imageData?.id)!)
+                
+                let fileManager = FileManager.default
+                let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let path = documentDirectory.appendingPathComponent("\(self.imageData!.id!)")
+                
+                do {
+                    try fileManager.removeItem(at: path)
+                } catch {
+                    
+                }
+                
+                DBManager.shared.delete(photo: photo!)
+                
+            })
+        
+        let downloadAction = UIPreviewAction(title: "Download Image", style: .default,
         handler: { previewAction, viewController in
             print("Action Two Selected")
         })
         
-        return [action1, action2]
+        if (DBManager.shared.fetchPhoto(id: (imageData?.id!)!) != nil) {
+            return [removeAction, downloadAction]
+        } else {
+            return [saveAction, downloadAction]
+        }
+        
     }
 
 }

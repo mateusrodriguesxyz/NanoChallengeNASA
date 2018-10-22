@@ -14,7 +14,7 @@ class CollectionViewCell: UICollectionViewCell {
         didSet {
             imageView.clipsToBounds = true
             imageView.layer.cornerRadius = 5
-            imageView.backgroundColor = .white
+            imageView.backgroundColor = UIColor.darkGray
         }
     }
 

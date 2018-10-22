@@ -25,6 +25,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //searchBar.isHidden = true
+        
+        searchBar.backgroundImage = UIImage()
+        searchBar.backgroundColor = .white
+        
+        UINavigationBar.appearance().backgroundColor = .blue
+        
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
         searchBar.text = "mars"
         
         activityIndicator.isHidden = true
@@ -45,6 +54,21 @@ class ViewController: UIViewController {
         
         if( traitCollection.forceTouchCapability == .available){
             registerForPreviewing(with: self, sourceView: self.collectionView)
+        }
+        
+        APIManager.shared.searchImage(query: "mars") { (images, error) in
+            
+            guard let images = images else {
+                return
+            }
+            
+            self.images = images
+            
+            DispatchQueue.main.async {
+                if !self.images.isEmpty {
+                    self.collectionView.reloadData()
+                }
+            }
         }
         
     }
