@@ -79,9 +79,13 @@ extension ViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
+        searchBar.showsCancelButton = true
+        
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
+        searchBar.showsCancelButton = false
         
     }
     

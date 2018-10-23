@@ -22,7 +22,33 @@
 		DC7001C7217A1D75004953DB /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7001C6217A1D75004953DB /* DetailsViewController.swift */; };
 		DC7001C9217DEA55004953DB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7001C8217DEA55004953DB /* FavoritesViewController.swift */; };
 		DC7001CD217E013E004953DB /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7001CC217E013E004953DB /* DBManager.swift */; };
+		DCD45510217F3A8800A2FBFB /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD4550F217F3A8800A2FBFB /* NotificationService.swift */; };
+		DCD45514217F3A8800A2FBFB /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DCD4550D217F3A8800A2FBFB /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DCD45512217F3A8800A2FBFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC7001962178D73B004953DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCD4550C217F3A8800A2FBFB;
+			remoteInfo = NotificationService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DCD45518217F3A8800A2FBFB /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DCD45514217F3A8800A2FBFB /* NotificationService.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DC70019E2178D73B004953DB /* NanoChallengeNASA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NanoChallengeNASA.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,10 +68,21 @@
 		DC7001C6217A1D75004953DB /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		DC7001C8217DEA55004953DB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		DC7001CC217E013E004953DB /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		DC7001CE217E17BB004953DB /* NanoChallengeNASA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NanoChallengeNASA.entitlements; sourceTree = "<group>"; };
+		DCD4550D217F3A8800A2FBFB /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCD4550F217F3A8800A2FBFB /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		DCD45511217F3A8800A2FBFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DC70019B2178D73B004953DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCD4550A217F3A8800A2FBFB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -59,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				DC7001A02178D73B004953DB /* NanoChallengeNASA */,
+				DCD4550E217F3A8800A2FBFB /* NotificationService */,
 				DC70019F2178D73B004953DB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				DC70019E2178D73B004953DB /* NanoChallengeNASA.app */,
+				DCD4550D217F3A8800A2FBFB /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,6 +113,7 @@
 		DC7001A02178D73B004953DB /* NanoChallengeNASA */ = {
 			isa = PBXGroup;
 			children = (
+				DC7001CE217E17BB004953DB /* NanoChallengeNASA.entitlements */,
 				DC7001A12178D73B004953DB /* AppDelegate.swift */,
 				DC7001B82178FEC0004953DB /* APIManager.swift */,
 				DC7001BA2178FF4D004953DB /* Response.swift */,
@@ -94,6 +134,15 @@
 			path = NanoChallengeNASA;
 			sourceTree = "<group>";
 		};
+		DCD4550E217F3A8800A2FBFB /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				DCD4550F217F3A8800A2FBFB /* NotificationService.swift */,
+				DCD45511217F3A8800A2FBFB /* Info.plist */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -104,15 +153,34 @@
 				DC70019A2178D73B004953DB /* Sources */,
 				DC70019B2178D73B004953DB /* Frameworks */,
 				DC70019C2178D73B004953DB /* Resources */,
+				DCD45518217F3A8800A2FBFB /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DCD45513217F3A8800A2FBFB /* PBXTargetDependency */,
 			);
 			name = NanoChallengeNASA;
 			productName = NanoChallengeNASA;
 			productReference = DC70019E2178D73B004953DB /* NanoChallengeNASA.app */;
 			productType = "com.apple.product-type.application";
+		};
+		DCD4550C217F3A8800A2FBFB /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCD45515217F3A8800A2FBFB /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				DCD45509217F3A8800A2FBFB /* Sources */,
+				DCD4550A217F3A8800A2FBFB /* Frameworks */,
+				DCD4550B217F3A8800A2FBFB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationService;
+			productName = NotificationService;
+			productReference = DCD4550D217F3A8800A2FBFB /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -125,6 +193,14 @@
 				ORGANIZATIONNAME = "Mateus Rodrigues";
 				TargetAttributes = {
 					DC70019D2178D73B004953DB = {
+						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+					DCD4550C217F3A8800A2FBFB = {
 						CreatedOnToolsVersion = 10.0;
 					};
 				};
@@ -143,6 +219,7 @@
 			projectRoot = "";
 			targets = (
 				DC70019D2178D73B004953DB /* NanoChallengeNASA */,
+				DCD4550C217F3A8800A2FBFB /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -156,6 +233,13 @@
 				DC7001AC2178D73B004953DB /* Assets.xcassets in Resources */,
 				DC7001BF21790450004953DB /* CollectionViewCell.xib in Resources */,
 				DC7001A72178D73B004953DB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCD4550B217F3A8800A2FBFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,7 +264,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DCD45509217F3A8800A2FBFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCD45510217F3A8800A2FBFB /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DCD45513217F3A8800A2FBFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCD4550C217F3A8800A2FBFB /* NotificationService */;
+			targetProxy = DCD45512217F3A8800A2FBFB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DC7001A52178D73B004953DB /* Main.storyboard */ = {
@@ -321,7 +421,10 @@
 		DC7001B42178D73B004953DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NanoChallengeNASA/NanoChallengeNASA.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2CU37X4Q76;
 				INFOPLIST_FILE = NanoChallengeNASA/Info.plist;
@@ -331,6 +434,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = academy.mateusrodrigues.NanoChallengeNASA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -339,7 +443,10 @@
 		DC7001B52178D73B004953DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NanoChallengeNASA/NanoChallengeNASA.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2CU37X4Q76;
 				INFOPLIST_FILE = NanoChallengeNASA/Info.plist;
@@ -349,6 +456,47 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = academy.mateusrodrigues.NanoChallengeNASA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DCD45516217F3A8800A2FBFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2CU37X4Q76;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = academy.mateusrodrigues.NanoChallengeNASA.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DCD45517217F3A8800A2FBFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2CU37X4Q76;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = academy.mateusrodrigues.NanoChallengeNASA.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -371,6 +519,15 @@
 			buildConfigurations = (
 				DC7001B42178D73B004953DB /* Debug */,
 				DC7001B52178D73B004953DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCD45515217F3A8800A2FBFB /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCD45516217F3A8800A2FBFB /* Debug */,
+				DCD45517217F3A8800A2FBFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

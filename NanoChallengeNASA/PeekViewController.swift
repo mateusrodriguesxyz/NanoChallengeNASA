@@ -54,7 +54,7 @@ class PeekViewController: UIViewController {
                 
             })
         
-        let removeAction = UIPreviewAction(title: "Delete from Favorites", style: .default,
+        let removeAction = UIPreviewAction(title: "Delete from Favorites", style: .destructive,
              handler: { previewAction, viewController in
                 
                 let photo = DBManager.shared.fetchPhoto(id: (self.imageData?.id)!)
@@ -79,9 +79,9 @@ class PeekViewController: UIViewController {
         })
         
         if (DBManager.shared.fetchPhoto(id: (imageData?.id!)!) != nil) {
-            return [removeAction, downloadAction]
+            return [removeAction]
         } else {
-            return [saveAction, downloadAction]
+            return [saveAction]
         }
         
     }
