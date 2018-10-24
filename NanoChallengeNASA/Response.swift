@@ -89,3 +89,10 @@ struct Metadata: Decodable {
     }
     
 }
+
+struct PictureOfTheDay: Decodable {
+    let date: String?
+    let explanation: String?
+    let title: String?
+    let url: String?
+}

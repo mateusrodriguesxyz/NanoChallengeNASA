@@ -10,7 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar.backgroundImage = UIImage()
+            searchBar.backgroundColor = .white
+            searchBar.text = "mars"
+        }
+    }
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -25,25 +31,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //searchBar.isHidden = true
-        
-        searchBar.backgroundImage = UIImage()
-        searchBar.backgroundColor = .white
-        
         UINavigationBar.appearance().backgroundColor = .blue
-        
         navigationController?.navigationBar.shadowImage = UIImage()
-        
-        searchBar.text = "mars"
         
         activityIndicator.isHidden = true
         
         searchBar.delegate = self
-        
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        collectionView?.backgroundColor = UIColor.clear
         collectionView?.contentInset = UIEdgeInsets(top: 23, left: 10, bottom: 10, right: 10)
         
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
@@ -53,12 +49,13 @@ class ViewController: UIViewController {
         }
         
         if( traitCollection.forceTouchCapability == .available){
-            registerForPreviewing(with: self, sourceView: self.collectionView)
+            registerForPreviewing(with: self, sourceView: collectionView)
         }
         
         APIManager.shared.searchImage(query: "mars") { (images, error) in
             
-            guard let images = images else {
+            guard let images = images, error == nil else {
+                print(error)
                 return
             }
             
@@ -161,6 +158,8 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
         
+        cell.isEditing = false
+        
         let image = images[indexPath.item]
         
         downloadImage(url: image.thumbUrl!) { (url, image, error) in
@@ -183,12 +182,10 @@ extension ViewController : PinterestLayoutDelegate {
 
 extension ViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
         guard let indexPath = collectionView.indexPathForItem(at: location) else {
             return nil
         }
-        
-        print(indexPath)
-        
         guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell else {
             return nil
         }
@@ -212,6 +209,6 @@ extension ViewController: UIViewControllerPreviewingDelegate {
         navigationController?.show(detailsController, sender: nil)
     }
     
-    
 }
+
 

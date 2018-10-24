@@ -21,16 +21,48 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aH2-jx-dGN">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                     </imageView>
+                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DWc-4y-pcd">
+                        <rect key="frame" x="60" y="10" width="30" height="30"/>
+                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="S5U-HN-TpI">
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MgU-VP-vO5">
+                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                    <state key="normal" title="X">
+                                        <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="deleteButtonDidTap:" destination="gTV-IL-0wX" eventType="touchUpInside" id="bFL-my-aPQ"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="MgU-VP-vO5" firstAttribute="leading" secondItem="S5U-HN-TpI" secondAttribute="leading" id="6D3-3a-OSf"/>
+                                <constraint firstAttribute="trailing" secondItem="MgU-VP-vO5" secondAttribute="trailing" id="I1h-kq-ThW"/>
+                                <constraint firstAttribute="bottom" secondItem="MgU-VP-vO5" secondAttribute="bottom" id="Su7-NQ-rv9"/>
+                                <constraint firstItem="MgU-VP-vO5" firstAttribute="top" secondItem="S5U-HN-TpI" secondAttribute="top" id="bfL-ls-soe"/>
+                            </constraints>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="M9Q-I8-uCA"/>
+                            <constraint firstAttribute="width" constant="30" id="Mqw-lg-6e6"/>
+                        </constraints>
+                        <blurEffect style="extraLight"/>
+                    </visualEffectView>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="aH2-jx-dGN" secondAttribute="trailing" id="4Yt-73-XUy"/>
+                <constraint firstAttribute="trailing" secondItem="DWc-4y-pcd" secondAttribute="trailing" constant="10" id="C2P-M2-9Hr"/>
                 <constraint firstItem="aH2-jx-dGN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="EEc-e5-t2E"/>
+                <constraint firstItem="DWc-4y-pcd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="EcZ-KZ-204"/>
                 <constraint firstItem="aH2-jx-dGN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="gbc-Z7-Ttn"/>
                 <constraint firstAttribute="bottom" secondItem="aH2-jx-dGN" secondAttribute="bottom" id="qSx-MU-y4w"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
+                <outlet property="blurView" destination="DWc-4y-pcd" id="46E-DV-lCk"/>
                 <outlet property="imageView" destination="aH2-jx-dGN" id="jSb-3u-ork"/>
             </connections>
         </collectionViewCell>

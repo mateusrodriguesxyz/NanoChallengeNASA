@@ -17,17 +17,29 @@ class CollectionViewCell: UICollectionViewCell {
             imageView.backgroundColor = UIColor.darkGray
         }
     }
-
+    @IBOutlet weak var blurView: UIVisualEffectView! {
+        didSet {
+            blurView.layer.cornerRadius = blurView.bounds.width/2.0
+            blurView.layer.masksToBounds = true
+        }
+    }
+    
+    var isEditing : Bool = false {
+        didSet {
+            blurView.isHidden = !isEditing
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-//        self.contentView.layer.cornerRadius = 5
-//        self.contentView.backgroundColor = .blue
-        // Initialization code
+
     }
     
     override func prepareForReuse() {
         imageView.image = nil
     }
 
+    @IBAction func deleteButtonDidTap(_ sender: Any) {
+        
+    }
 }

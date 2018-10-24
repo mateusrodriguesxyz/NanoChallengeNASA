@@ -32,13 +32,18 @@ class DBManager {
         try persistentContainer.viewContext.save()
     }
     
-    func insertItem(id: String, title: String, description: String) {
+    func insertItem(id: String, title: String, description: String, image: UIImage?) {
         let photo = NSEntityDescription.insertNewObject(forEntityName: "Photo", into: persistentContainer.viewContext) as! Photo
         photo.id = id
         photo.title = title
         photo.photoDescription = description
         do {
             try save()
+            if let data = image?.pngData() {
+                let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let filename = documentDirectory.appendingPathComponent("\(photo.id!)")
+                try data.write(to: filename)
+            }
         } catch {
             print(error)
         }
@@ -46,7 +51,15 @@ class DBManager {
     
     func delete(photo: Photo) {
         persistentContainer.viewContext.delete(photo)
-        try! save()
+        do {
+            let fileManager = FileManager.default
+            let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let path = documentDirectory.appendingPathComponent("\(photo.id!)")
+            try fileManager.removeItem(at: path)
+            try save()
+        } catch {
+            print(error)
+        }
     }
     
     func fetchAllPhotos() -> [Photo] {

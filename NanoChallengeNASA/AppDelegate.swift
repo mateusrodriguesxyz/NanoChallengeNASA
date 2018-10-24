@@ -14,25 +14,19 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-    
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         registerForPushNotifications()
         
         
-        let acceptAction = UNNotificationAction(identifier: "ACCEPT_ACTION",
-                                                title: "Accept",
+        let saveAction = UNNotificationAction(identifier: "SAVE_ACTION",
+                                                title: "Save to Favorites",
                                                 options: UNNotificationActionOptions(rawValue: 0))
-        let declineAction = UNNotificationAction(identifier: "DECLINE_ACTION",
-                                                 title: "Decline",
-                                                 options: UNNotificationActionOptions(rawValue: 0))
         // Define the notification type
         let meetingInviteCategory =
             UNNotificationCategory(identifier: "MEETING_INVITATION",
-                                   actions: [acceptAction, declineAction],
+                                   actions: [saveAction],
                                    intentIdentifiers: [],
                                    hiddenPreviewsBodyPlaceholder: "",
                                    options: .customDismissAction)
@@ -153,20 +147,41 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
+        let content = response.notification.request.content
+        let data = content.userInfo["data"] as! [String:String]
+        
+        let imageUrl = URL(string: data["attachment-url"]!)!
+        
+        print(imageUrl)
+        
         switch response.actionIdentifier {
-        case "ACCEPT_ACTION":
-            print("ACTION ONE")
-            break
+        case "SAVE_ACTION":
+            print("Save to Favorites")
             
-        case "DECLINE_ACTION":
-            print("ACTION TWO")
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd-MMM-yyyy"
+            let today = formatter.string(from: Date())
+            
+            let id = "apod-\(today)"
+            
+            URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
+                
+                guard let data = data, error == nil else {
+                    print(error)
+                    return
+                }
+                let image = UIImage(data: data)
+                DBManager.shared.insertItem(id: id, title: content.subtitle, description: content.body, image: image)
+                completionHandler()
+            }.resume()
+            
             break
             
         default:
             break
         }
         
-        completionHandler()
+        
     }
     
 }

@@ -16,7 +16,6 @@ class PeekViewController: UIViewController {
     
     var image: UIImage?
     var imageData: Image?
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,19 +36,12 @@ class PeekViewController: UIViewController {
     override var previewActionItems: [UIPreviewActionItem] {
         let saveAction = UIPreviewAction(title: "Save to Favorites", style: .default,
             handler: { previewAction, viewController in
+                guard let photo = self.imageData else {
+                    return
+                }
                 
-                if let data = self.image?.pngData() {
-                    
-                    let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                    let filename = documentDirectory.appendingPathComponent("\(self.imageData!.id!)")
-                    try? data.write(to: filename)
-                    
-                    guard let photo = self.imageData else {
-                        return
-                    }
-                    
-                    DBManager.shared.insertItem(id: photo.id!, title: photo.title!, description: photo.description!)
-                    
+                DispatchQueue.main.async {
+                    DBManager.shared.insertItem(id: photo.id!, title: photo.title!, description: photo.description!, image: self.image)
                 }
                 
             })
@@ -59,29 +51,21 @@ class PeekViewController: UIViewController {
                 
                 let photo = DBManager.shared.fetchPhoto(id: (self.imageData?.id)!)
                 
-                let fileManager = FileManager.default
-                let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-                let path = documentDirectory.appendingPathComponent("\(self.imageData!.id!)")
-                
-                do {
-                    try fileManager.removeItem(at: path)
-                } catch {
-                    
-                }
-                
                 DBManager.shared.delete(photo: photo!)
                 
             })
         
-        let downloadAction = UIPreviewAction(title: "Download Image", style: .default,
+        let shareAction = UIPreviewAction(title: "Share Image", style: .default,
         handler: { previewAction, viewController in
-            print("Action Two Selected")
+            let vc = UIActivityViewController(activityItems: [self.image], applicationActivities: [])
+            self.show(vc, sender: nil)
+
         })
         
         if (DBManager.shared.fetchPhoto(id: (imageData?.id!)!) != nil) {
-            return [removeAction]
+            return [removeAction, shareAction]
         } else {
-            return [saveAction]
+            return [saveAction, shareAction]
         }
         
     }

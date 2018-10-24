@@ -18,14 +18,12 @@ class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = editButtonItem
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
-        
-        
-        print(favorites.count)
-    
         
     }
     
@@ -41,10 +39,19 @@ class FavoritesViewController: UIViewController {
         let fileManager = FileManager.default
         let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
         let path = documentDirectory.appendingPathComponent(id)
-        let data = try! Data(contentsOf: path)
-        return UIImage(data: data)
+        do {
+            let data = try Data(contentsOf: path)
+            return UIImage(data: data)
+        } catch {
+            print(error)
+            return nil
+        }
     }
-
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+    }
+    
 }
 
 extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -58,9 +65,8 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
         
         cell.imageView.image = getImage(id: photo.id!)
         cell.imageView.contentMode = .scaleAspectFill
+        cell.isEditing = true
         
         return cell
     }
-    
-    
 }
