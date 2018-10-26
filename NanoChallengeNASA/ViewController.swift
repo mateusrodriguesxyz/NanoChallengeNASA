@@ -46,6 +46,7 @@ class ViewController: UIViewController {
         
         if let layout = collectionView?.collectionViewLayout as? PinterestLayout {
             layout.delegate = self
+            layout.numberOfColumns = 3
         }
         
         if( traitCollection.forceTouchCapability == .available){
@@ -95,7 +96,7 @@ extension ViewController: UISearchBarDelegate {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
-        self.images = []
+ 
         collectionView.reloadData()
         
         let searchString = searchBar.text?.lowercased().replacingOccurrences(of: " ", with: "+") ?? ""
@@ -149,16 +150,14 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(images.count)
         return images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
         
-        cell.isEditing = false
+        cell.blurView.isHidden = true
         
         let image = images[indexPath.item]
         
@@ -169,6 +168,14 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
+        let detailsController = storyboard?.instantiateViewController(withIdentifier: "details") as! DetailsViewController
+        detailsController.image = cell.imageView.image
+        detailsController.imageData = self.images[indexPath.item]
+        navigationController?.show(detailsController, sender: nil)
     }
     
 }
@@ -198,6 +205,8 @@ extension ViewController: UIViewControllerPreviewingDelegate {
         
         previewingContext.sourceRect = cell.frame
         
+        previewController.delegate = self
+        
         return previewController
     }
     
@@ -208,6 +217,15 @@ extension ViewController: UIViewControllerPreviewingDelegate {
         detailsController.imageData = previewController.imageData
         navigationController?.show(detailsController, sender: nil)
     }
+    
+}
+
+extension ViewController: ActivityViewDelegate {
+    func showActivity(image: UIImage) {
+        let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+        present(vc, animated: true, completion: nil)
+    }
+    
     
 }
 

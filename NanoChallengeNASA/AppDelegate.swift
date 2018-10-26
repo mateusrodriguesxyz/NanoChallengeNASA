@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         registerForPushNotifications()
         
+        application.applicationIconBadgeNumber = 0
+        
         
         let saveAction = UNNotificationAction(identifier: "SAVE_ACTION",
                                                 title: "Save to Favorites",

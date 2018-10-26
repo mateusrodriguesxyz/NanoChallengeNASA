@@ -25,10 +25,17 @@ class FavoritesViewController: UIViewController {
         
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
         
+        if let layout = collectionView?.collectionViewLayout as? PinterestLayout {
+            layout.delegate = self
+            layout.numberOfColumns = 2
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        self.isEditing = false
         
         favorites = DBManager.shared.fetchAllPhotos()
         collectionView.reloadData()
@@ -50,6 +57,18 @@ class FavoritesViewController: UIViewController {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
+        
+        if let indexPaths = collectionView?.indexPathsForVisibleItems {
+            for indexPath in indexPaths {
+                let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
+                cell.isEditing = editing
+                
+            }
+        }
+        
+        collectionView.reloadData()
+        
+        
     }
     
 }
@@ -65,8 +84,31 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
         
         cell.imageView.image = getImage(id: photo.id!)
         cell.imageView.contentMode = .scaleAspectFill
-        cell.isEditing = true
+        cell.isEditing = self.isEditing
+        
+        cell.delegate = self
         
         return cell
     }
+}
+
+extension FavoritesViewController: CellDelegate {
+    func delete(cell: CollectionViewCell) {
+        if let indexPath = collectionView.indexPath(for: cell) {
+            let photo = favorites[indexPath.item]
+            DBManager.shared.delete(photo: photo)
+            favorites.remove(at: indexPath.item)
+            collectionView.deleteItems(at: [indexPath])
+            
+        }
+    }
+}
+
+extension FavoritesViewController : PinterestLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, sizeForPhotoAtIndexPath indexPath: IndexPath) -> CGSize {
+        let photo = favorites[indexPath.item]
+        let image = getImage(id: photo.id!)
+        return image?.size ?? CGSize(width: 200, height: 200)
+    }
+    
 }

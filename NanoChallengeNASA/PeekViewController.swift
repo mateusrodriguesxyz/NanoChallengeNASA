@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+protocol ActivityViewDelegate: class {
+    func showActivity(image: UIImage)
+}
+
 class PeekViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
@@ -16,6 +20,8 @@ class PeekViewController: UIViewController {
     
     var image: UIImage?
     var imageData: Image?
+    
+    weak var delegate: ActivityViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +63,7 @@ class PeekViewController: UIViewController {
         
         let shareAction = UIPreviewAction(title: "Share Image", style: .default,
         handler: { previewAction, viewController in
-            let vc = UIActivityViewController(activityItems: [self.image], applicationActivities: [])
-            self.show(vc, sender: nil)
-
+            self.delegate?.showActivity(image: self.image!)
         })
         
         if (DBManager.shared.fetchPhoto(id: (imageData?.id!)!) != nil) {

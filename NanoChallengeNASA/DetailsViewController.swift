@@ -24,26 +24,23 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = imageData?.title
+        
         if let image = image {
             
             let boundingRect = CGRect(x: 0, y: 0, width: imageView.frame.width, height: CGFloat(MAXFLOAT))
             let proportionalSize = AVMakeRect(aspectRatio: image.size, insideRect: boundingRect)
             
             imageConstraintHeight.constant = proportionalSize.size.height
-            print("image constraint", imageConstraintHeight.constant)
-            print("content constraint", contentConstraintHeight.constant)
     
             imageView.image = image
             
             textView.text = imageData?.description
-            
             textConstraintHeight.constant = textView.contentSize.height
-            
+
             contentConstraintHeight.constant = imageConstraintHeight.constant + textConstraintHeight.constant + 40
             
         }
-        
-        print(imageData)
 
     }
 

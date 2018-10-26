@@ -18,7 +18,7 @@ class PinterestLayout: UICollectionViewLayout {
     weak var delegate: PinterestLayoutDelegate!
     
     //2. Configurable properties
-    fileprivate var numberOfColumns = 4
+    var numberOfColumns = 4
     fileprivate var cellPadding: CGFloat = 6
     
     //3. Array to keep a cache of attributes.
