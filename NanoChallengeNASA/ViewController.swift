@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         didSet {
             searchBar.backgroundImage = UIImage()
             searchBar.backgroundColor = .white
-            searchBar.text = "mars"
+//            searchBar.text = "mars"
         }
     }
     @IBOutlet weak var collectionView: UICollectionView!
@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tabBarController?.tabBar.unselectedItemTintColor = .lightGray
         UINavigationBar.appearance().backgroundColor = .blue
         navigationController?.navigationBar.shadowImage = UIImage()
         
@@ -56,7 +57,7 @@ class ViewController: UIViewController {
         APIManager.shared.searchImage(query: "mars") { (images, error) in
             
             guard let images = images, error == nil else {
-                print(error)
+                print(error!.localizedDescription)
                 return
             }
             
@@ -72,6 +73,8 @@ class ViewController: UIViewController {
     }
 
 }
+
+// MARK: - Search Bar
 
 extension ViewController: UISearchBarDelegate {
     
@@ -130,6 +133,8 @@ extension ViewController: UISearchBarDelegate {
     
 }
 
+// MARK: - Collection View
+
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func downloadImage(url: URL, completion: @escaping (URL, UIImage?, Error?) -> Void) {
@@ -180,12 +185,16 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
 }
 
+// MARK: - Pinterest Layout
+
 extension ViewController : PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, sizeForPhotoAtIndexPath indexPath: IndexPath) -> CGSize {
         return images[indexPath.item].imageSize ?? CGSize(width: 200, height: 200)
     }
     
 }
+
+// MARK: - Peek and Pop
 
 extension ViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
@@ -219,6 +228,8 @@ extension ViewController: UIViewControllerPreviewingDelegate {
     }
     
 }
+
+// MARK: - Activity
 
 extension ViewController: ActivityViewDelegate {
     func showActivity(image: UIImage) {

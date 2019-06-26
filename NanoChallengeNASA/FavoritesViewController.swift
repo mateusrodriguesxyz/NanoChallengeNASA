@@ -94,13 +94,18 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
 
 extension FavoritesViewController: CellDelegate {
     func delete(cell: CollectionViewCell) {
-        if let indexPath = collectionView.indexPath(for: cell) {
-            let photo = favorites[indexPath.item]
-            DBManager.shared.delete(photo: photo)
-            favorites.remove(at: indexPath.item)
-            collectionView.deleteItems(at: [indexPath])
-            
-        }
+        let alertController = UIAlertController(title: "Remove from Favorites", message:
+            "Are you sure?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (_) in
+            if let indexPath = self.collectionView.indexPath(for: cell) {
+                let photo = self.favorites[indexPath.item]
+                DBManager.shared.delete(photo: photo)
+                self.favorites.remove(at: indexPath.item)
+                self.collectionView.deleteItems(at: [indexPath])
+            }
+        }))
+        alertController.addAction(UIAlertAction(title: "No", style: .default))
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

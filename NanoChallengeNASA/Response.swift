@@ -44,10 +44,8 @@ struct Image: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
         let data = try container.decode([ImageData].self, forKey: .data)
         let links = try container.decode([ImageLink].self, forKey: .links)
-        
         self.id = data.first?.nasa_id
         self.title = data.first?.title
         self.description = data.first?.description
